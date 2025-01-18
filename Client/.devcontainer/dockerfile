@@ -1,0 +1,21 @@
+# Use the official Node.js image as the base
+FROM node:18
+
+# Set the working directory
+WORKDIR /workspace
+
+# Install required OS packages
+RUN apt-get update && apt-get install -y \
+    git \
+    bash \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set permissions for the workspace
+RUN chown -R node:node /workspace
+
+# Switch to non-root user
+USER node
+
+# Expose port 3000 for React development
+EXPOSE 3000

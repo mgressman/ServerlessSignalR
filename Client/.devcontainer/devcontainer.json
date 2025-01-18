@@ -1,0 +1,47 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.241.1/containers/ubuntu
+{
+  "name": "React Development Container",
+  "build": {
+    "dockerfile": "dockerfile",
+    "args": {}
+  },
+  // Configure tool-specific properties.
+  "customizations": {
+    // Configure properties specific to VS Code.
+    "vscode": {
+      // Set *default* container specific settings.json values on container create.
+      "settings": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode", // Set Prettier as the default formatter
+        "editor.formatOnSave": true, // Enable Format on Save
+        "emmet.includeLanguages": {
+          "javascript": "javascriptreact" // Enable emmet snippets and expansions for react code
+        },
+        "reactSnippets.settings.importReactOnTop": false
+      },
+      // Add the IDs of extensions you want installed when the container is created.
+      "extensions": [
+        "ms-azuretools.vscode-docker", // Docker
+        "dbaeumer.vscode-eslint", // ESLint
+        "esbenp.prettier-vscode", // Prettier
+        "ms-vscode.vscode-typescript-next", // TypeScript
+        "formulahendry.auto-rename-tag", // Auto Rename Tag
+        "dsznajder.es7-react-js-snippets" // JavaScript and React/Redux snippets in ES7+
+      ]
+    }
+  },
+  "features": {},
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  "forwardPorts": [3000],
+  // Use 'postCreateCommand' to run commands after the container is created.
+  "postCreateCommand": "",
+  "remoteUser": "node",
+  "mounts": [
+    "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached"
+  ],
+  "workspaceFolder": "/workspace",
+  "remoteEnv": {
+    "CHOKIDAR_USEPOLLING": "true"
+  },
+  "runArgs": ["--env-file", ".devcontainer/devcontainer.env"]
+}

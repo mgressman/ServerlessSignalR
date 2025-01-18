@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "SignalRService.Api": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7238 --verbose"
+    }
+  }
+}
