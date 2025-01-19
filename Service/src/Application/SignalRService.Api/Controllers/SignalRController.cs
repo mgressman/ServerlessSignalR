@@ -1,3 +1,4 @@
+using ApplicationFramework.Web.Core.AzureFunction.Authentication.Token;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
@@ -8,6 +9,7 @@ using SignalRService.ApplicationCore.Commands.Connection;
 namespace SignalRService.Api.Controllers
 {
     public class SignalRController(
+        IJwtToken jwtToken,
         ILogger<SignalRController> logger,
         IMediator mediator)
     {
@@ -28,6 +30,13 @@ namespace SignalRService.Api.Controllers
             HttpRequestData req)
         {
             logger.LogInformation("C# HTTP trigger function processed a request.");
+
+            var principal = await jwtToken.ValidateFromRequest(req);
+
+            if (principal == null)
+            {
+                return req.CreateResponse(System.Net.HttpStatusCode.Unauthorized);
+            }
 
             var command = new NegotiateConnection();
 
@@ -68,6 +77,5 @@ namespace SignalRService.Api.Controllers
         }
 
         #endregion
-
     }
 }

@@ -8,6 +8,8 @@
 //      - AzureSignalRConnectionString:
 //      - AuthenticationAuthority: https://login.microsoftonline.com/{tenant-id}
 //      - AuthenticationClientId
+
+using ApplicationFramework.Web.Core.AzureFunction.Authentication.Token;
 using Microsoft.ApplicationInsights;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Builder;
@@ -20,7 +22,6 @@ using Serilog.Exceptions;
 using Serilog.Extensions.Logging;
 using Serilog.Formatting.Display;
 using SignalRService.ApplicationCore.SignalRHubs;
-using SignalRService.Infrastructure.Middleware.Authentication;
 
 var builder = FunctionsApplication.CreateBuilder(args);
 
@@ -58,6 +59,10 @@ builder.Services
             .CreateLogger();
         return new SerilogLoggerProvider(Log.Logger, true);
     })
+
+    // this should come from a shared library instead of being part of this solution,
+    // but for simplicity, it is included here.
+    .AddScoped<IJwtToken, JwtToken>()
 
     .AddMediatR(cfg =>
         cfg.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
