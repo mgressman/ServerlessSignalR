@@ -17,8 +17,12 @@ export const connectToSignalR = async (
       .build();
 
     // Setup event handlers
-    connection.on("newConnection", (message: string) => {
-      console.log("New connection with message:", message);
+    connection.on("clientconnected", (message: string) => {
+      console.log("Client connected with ID:", message);
+    });
+
+    connection.on("clientdisconnected", (message: string) => {
+      console.log("Client disconnected with ID:", message);
     });
 
     connection.on("newMessage", (message: string) => {

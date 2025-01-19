@@ -9,6 +9,7 @@
   </PropertyGroup>
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="MediatR" Version="12.4.1" />
     <PackageReference Include="Microsoft.ApplicationInsights.WorkerService" Version="2.22.0" />
     <PackageReference Include="Microsoft.Azure.Functions.Worker" Version="2.0.0" />
     <PackageReference Include="Microsoft.Azure.Functions.Worker.ApplicationInsights" Version="2.0.0" />
@@ -25,6 +26,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\ApplicationCore\SignalRService.ApplicationCore\SignalRService.ApplicationCore.csproj" />
     <ProjectReference Include="..\..\Infrastructure\SignalRService.Infrastructure\SignalRService.Infrastructure.csproj" />
+    <ProjectReference Include="..\SignalRService.Application\SignalRService.Application.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="host.json">

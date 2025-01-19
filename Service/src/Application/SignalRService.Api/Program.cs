@@ -19,7 +19,8 @@ using Serilog;
 using Serilog.Exceptions;
 using Serilog.Extensions.Logging;
 using Serilog.Formatting.Display;
-using SignalRService.Api.Controllers;
+using SignalRService.ApplicationCore.SignalRHubs;
+using SignalRService.Infrastructure.Middleware.Authentication;
 
 var builder = FunctionsApplication.CreateBuilder(args);
 
@@ -34,7 +35,7 @@ builder.Configuration.AddUserSecrets<Program>();
 builder.Services
     .AddApplicationInsightsTelemetryWorkerService()
     .ConfigureFunctionsApplicationInsights()
-    .AddServerlessHub<SignalRHub>()
+    .AddServerlessHub<DefaultHub>()
 
     .AddLogging(loggingBuilder =>
     {
@@ -56,7 +57,10 @@ builder.Services
                     "{NewLine}[{Timestamp:yyyy/MM/dd HH:mm:ss} {Level:u11}] {Message:lj} : {Exception}"))
             .CreateLogger();
         return new SerilogLoggerProvider(Log.Logger, true);
-    });
+    })
+
+    .AddMediatR(cfg =>
+        cfg.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
 
 builder.Logging.Services.Configure<LoggerFilterOptions>(static options =>
 {
