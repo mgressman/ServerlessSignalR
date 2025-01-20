@@ -1,16 +1,20 @@
-### Multitenant SignalR Service
+### Multitenant, Multiproduct SignalR Service
 
 #### Define a Grouping Strategy
-In a multitenant SaaS application, the grouping strategy should allow flexibility for:
+In a multitenant, multiproduct SaaS stack, the grouping strategy should allow flexibility for:
 
-- All users across all tenants.
+- All users across all tenants and target products.
 - All users within a specific tenant.
+- All users within a specific target product.
+- All users within a target product within a specific tenant.
 - A specific user in a specific tenant.
+- A specific user in a specific tenant using a specific target product.
 
-Here’s a suggested approach:
+Here is a suggested approach:
 
 Global Group: Use a fixed group name like `AllUsers`.
 Tenant Groups: Use the tenant ID or name as the group name, e.g., `Tenant-{tenantId}`.
+Product Groups: Use a product name to differentiate product specific applications, e.g., `MyAwesomeApplication`.
 User Groups: Include the tenant and user identifier, e.g., `Tenant-{tenantId}-User-{userId}`.
 
 #### Assign Users to Groups:
