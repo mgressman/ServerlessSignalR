@@ -1,6 +1,4 @@
-﻿using MediatR;
-
-namespace SignalRService.ApplicationCore.Interfaces.SignalR
+﻿namespace SignalRService.ApplicationCore.Interfaces.SignalR
 {
     public interface IDefaultHub
     {

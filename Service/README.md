@@ -1,3 +1,25 @@
+### Multitenant SignalR Service
+
+#### Define a Grouping Strategy
+In a multitenant SaaS application, the grouping strategy should allow flexibility for:
+
+- All users across all tenants.
+- All users within a specific tenant.
+- A specific user in a specific tenant.
+
+Here’s a suggested approach:
+
+Global Group: Use a fixed group name like `AllUsers`.
+Tenant Groups: Use the tenant ID or name as the group name, e.g., `Tenant-{tenantId}`.
+User Groups: Include the tenant and user identifier, e.g., `Tenant-{tenantId}-User-{userId}`.
+
+#### Assign Users to Groups:
+When a user connects to SignalR, map them to the appropriate group(s):
+
+- Add all users to the `AllUsers` group.
+- Add the user to their tenant group, e.g., `Tenant-{tenantId}`.
+- Optionally, create a personal group for the user, e.g., `Tenant-{tenantId}-User-{userId}`.
+
 ### Development Environment Setup
 
 #### Enabling CORS
